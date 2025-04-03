@@ -1,24 +1,33 @@
-﻿class Program
+﻿namespace Builder
 {
-    static void Main(string[] args)
+    class Program
     {
-        // Создание напитка через Builder
-        var cocktail = new Drink.Builder()
-            .SetType("Коктейль")
-            .SetAlcohol(true)
-            .SetGlassType("Бокал")
-            .SetDecoration("Лимон")
-            .Build();
+        static void Main(string[] args)
+        {
+            var cocktail = new Drink.Builder()
+                .SetType("Cocktail")
+                .SetAlcohol(true)
+                .SetGlassType("Goblet")
+                .SetDecoration("Lemon")
+                .Build();
 
-        var juice = new Drink.Builder()
-            .SetType("Сок")
-            .SetAlcohol(false)
-            .SetGlassType("Стакан")
-            .SetDecoration("Мята")
-            .Build();
+            var juice = new Drink.Builder()
+                .SetType("Juice")
+                .SetAlcohol(false)
+                .SetGlassType("Glass")
+                .SetDecoration("Mint")
+                .Build();
 
-        // Выводим информацию о напитках
-        Console.WriteLine(cocktail);
-        Console.WriteLine(juice);
+            var bloodyMary = new Drink.Builder()
+                .SetType("Cocktail")
+                .SetAlcohol(true)
+                .SetGlassType("Glass")
+                .SetDecoration("Tomato")
+                .Build();
+
+            Console.WriteLine(cocktail);
+            Console.WriteLine(juice);
+            Console.WriteLine(bloodyMary);
+        }
     }
 }

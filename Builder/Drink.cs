@@ -1,50 +1,56 @@
-﻿public class Drink
+﻿namespace Builder
 {
-    public string Type { get; private set; } = string.Empty;
-    public bool ContainsAlcohol { get; private set; }
-    public string GlassType { get; private set; } = string.Empty;
-    public string Decoration { get; private set; } = string.Empty;
-
-    // Приватный конструктор, объект можно создать только через Builder
-    private Drink() { }
-
-    // Вложенный Builder
-    public class Builder
+    public class Drink
     {
-        private Drink _drink = new Drink();
+        public string Type { get; private set; } = string.Empty;
+        public bool ContainsAlcohol { get; private set; }
+        public string GlassType { get; private set; } = string.Empty;
+        public string Decoration { get; private set; } = string.Empty;
 
-        public Builder SetType(string type)
+        private Drink() { }
+
+        public class Builder
         {
-            _drink.Type = type;
-            return this;
+            private readonly Drink _drink = new Drink();
+
+            public Builder SetType(string type)
+            {
+                _drink.Type = type;
+                return this;
+            }
+
+            public Builder SetAlcohol(bool containsAlcohol)
+            {
+                _drink.ContainsAlcohol = containsAlcohol;
+                return this;
+            }
+
+            public Builder SetGlassType(string glassType)
+            {
+                _drink.GlassType = glassType;
+                return this;
+            }
+
+            public Builder SetDecoration(string decoration)
+            {
+                _drink.Decoration = decoration;
+                return this;
+            }
+
+            public Drink Build()
+            {
+                return _drink;
+            }
         }
 
-        public Builder SetAlcohol(bool containsAlcohol)
+        public override string ToString()
         {
-            _drink.ContainsAlcohol = containsAlcohol;
-            return this;
+            return string.Format("| {0,-15} | {1,-12} | {2,-22} | {3,-13} |",
+                "Drink: " + Type,
+                "Alcohol: " + (ContainsAlcohol ? "Yes" : "No"),
+                "Type of dishes: " + GlassType,
+                "Decor: " + Decoration)
+                + "\n---------------------------------------------------------------------------";
         }
-
-        public Builder SetGlassType(string glassType)
-        {
-            _drink.GlassType = glassType;
-            return this;
-        }
-
-        public Builder SetDecoration(string decoration)
-        {
-            _drink.Decoration = decoration;
-            return this;
-        }
-
-        public Drink Build()
-        {
-            return _drink; // Возвращаем готовый напиток
-        }
-    }
-
-    public override string ToString()
-    {
-        return $"Напиток: {Type}, Алкоголь: {(ContainsAlcohol ? "Есть" : "Нет")}, Стекло: {GlassType}, Украшение: {Decoration}";
     }
 }
